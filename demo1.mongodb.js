@@ -106,3 +106,5 @@ db.movies.find({
 })
 
 
+// 16. $expr ou $where
+// 17. $slice, $sortArray

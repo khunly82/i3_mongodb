@@ -25,6 +25,5 @@
 13. Récupérer la liste unique de tous les genres présentés dans la base de données.
 14. Récupérer la liste unique des années dans lesquelles au moins un film d'horreur est sorti.
 15. Récupérer le titre et la couleur des films qui possèdent un champ `color` renseigné.
-16. Récupérer le titre des films dont le champ `score` est enregistré en tant que nombre à virgule (double).
-17. Récupérer le titre et les acteurs des films ayant strictement plus de 5 acteurs.
-18. Récupérer le titre et les titres alternatifs des films dont au moins un titre alternatif commence par le mot "Rita".
+16. Récupérer le titre et les acteurs des films ayant strictement plus de 5 acteurs.
+17. Récupérer le `titre`, les `5 premiers acteurs triés par ordre croissant` des films sortis dans les années 90 et dont le genre est "Horror" ou "Comedy"
