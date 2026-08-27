@@ -1,0 +1,14 @@
+{
+    "id": 42,
+    "nom": "Khun",
+    "dateNaissance": "1982-05-06",
+    "compétences": ["C#", "SQL", "Mongo"],
+    "adresse": {
+        "rue": "Rue des chats",
+        "numero": 42,
+        "ville": {
+            "nom": "Namur",
+            "cp": 5000
+        }
+    } 
+}
