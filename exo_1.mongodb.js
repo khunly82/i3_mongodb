@@ -138,10 +138,7 @@ db.movies.find({
 // 16. Récupérer le titre et les acteurs des films ayant strictement plus de 5 acteurs.
 
 db.movies.find({
-    // $expr: { $gt: [
-    //     { $size: '$actors' },
-    //     5
-    // ] }
+    $expr: { $gt: [{ $size: '$actors' }, 5] }
 }, {
     title: 1,
     actors: 1
