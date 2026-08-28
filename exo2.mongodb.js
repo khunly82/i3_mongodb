@@ -54,25 +54,65 @@ db.movies.aggregate(
 // ### Exercice 5
 // Récupérer la **moyenne des scores sur 100** pour l'ensemble des films dans lesquels **Tom Hanks** a joué.
 
+db.movies.aggregate(
+    { $match: { actors: 'Tom Hanks' } },
+    { $group: { 
+        _id: null,
+        average: { $avg: '$score'  }
+    } },
+    { $project: { averageOn100: { $multiply: [10, '$average'] } } }
+)
+
 // ---
 
 // ### Exercice 6
 // Récupérer **tous les titres de films groupés par genre**.
+
+db.movies.aggregate(
+    { $unwind: '$genre' },
+    { $group: { _id: '$genre', titles: { $push: '$title' } } }
+)
 
 // ---
 
 // ### Exercice 7
 // Récupérer les **10 meilleurs titres de films pour chaque genre** (basé sur le score).
 
+db.movies.aggregate(
+    { $unwind: '$genre' },
+    { $group: { 
+        _id: '$genre', 
+        titles: { $topN: { 
+            output: '$title', n: 10, sortBy: { score: -1 } 
+        } } 
+    } }
+)
+
 // ---
 
 // ### Exercice 8
 // Récupérer les **5 meilleures moyennes de score** des films groupés par acteurs.
 
+db.movies.aggregate(
+    { $unwind: '$actors' },
+    { $group: { _id: '$actors', avg: { $avg: '$score' } } },
+    { $sort: { avg: -1 } },
+    { $limit: 5 }
+)
+
 // ---
 
 // ### Exercice 9
 // Récupérer la **moyenne des scores** groupée à la fois par **genre** et par **année**.
+
+db.movies.aggregate(
+    { $unwind: '$genre' },
+    { $group: { 
+        _id: ['$year', '$genre'],
+        moyenne: { $avg: '$score' }
+    } },
+    { $sort: { _id: 1 }  }
+)
 
 // ---
 
@@ -80,6 +120,14 @@ db.movies.aggregate(
 // Récupérer le **nombre total de films** dans lesquels chaque acteur a joué.
 
 // ---
+
+db.movies.aggregate(
+    { $unwind: '$actors' },
+    { $group: { 
+        _id: '$actors', 
+        count: { $count: {} } 
+    } }
+)
 
 // ### Exercice 11
 // Récupérer par acteur la **répartition des films par genre** (le nom du genre et le nombre de films associés).
@@ -95,3 +143,19 @@ db.movies.aggregate(
 //     ]
 //   }
 // ]
+
+db.movies.aggregate(
+    { $unwind: '$actors' },
+    { $unwind: '$genre' },
+    { $group: {
+        _id: { genre: '$genre', actor: '$actors' },
+        nbFilms: { $count: {} }
+    } },
+    { $group: {
+        _id: '$_id.actor',
+        details: { $push: { 
+            genre: '$_id.genre', quantite: '$nbFilms' 
+        } }
+    } }
+)
+
