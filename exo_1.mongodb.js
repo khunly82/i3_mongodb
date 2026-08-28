@@ -149,17 +149,14 @@ db.movies.find({
 
 // 17. Récupérer le `titre`, les `5 premiers acteurs triés par ordre croissant` des films sortis dans les années 90 et dont le genre est "Horror" ou "Comedy".
 // hint: $sortArray, $slice
+
 db.movies.find({
     genre: { $in: ['Horror', 'Comedy'] },
     year: { $gte: 1990, $lte: 1999 }
 }, {
     title: 1,
-    //nb_actors: { $size: '$actors' },
     actors: { $slice: [
-        { $sortArray: {
-            input: '$actors', sortBy: 1
-        }} 
-        , 5
+        { $sortArray: {input: '$actors', sortBy: 1} }, 5
     ] },
 })
 
