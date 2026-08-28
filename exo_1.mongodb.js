@@ -128,7 +128,7 @@ db.movies.distinct('year', {
     genre: { $all: ['Animation', 'Horror'] }
 })
 
-// 15. Récupérer le titre et la couleur des films qui possèdent un champ `color` renseigné.
+// 15. Récupérer le titre et la couleur des films qui ne possèdent un champ `color` renseigné.
 
 db.movies.find({
     color: { $exists: 0 }
